@@ -1,0 +1,151 @@
+.gallery-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+
+.gallery-modal {
+
+	background-color: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	color: white;
+	text-align: center;
+	z-index: 11; /* 1px higher than the overlay layer */
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	border: 2px solid white;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	
+}
+
+.gallery-image {
+	position: absolute;
+	/*left: 0;
+	right: 0;*/
+}
+
+.gallery-button-right{
+	background: url(../img/gallery-right.png);
+	background-size: 30px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	cursor: pointer;
+	float: right;
+	height: 100%;
+	width: 30px;
+}
+
+.gallery-button-right:hover {
+	background: url(../img/gallery-right-hover.png);
+	background-size: 30px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.gallery-button-left{
+	background: url(../img/gallery-left.png);
+	background-size: 30px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	cursor: pointer;
+	float: left;
+	height: 100%;
+	width: 30px;
+}
+
+.gallery-button-left:hover {
+	background: url(../img/gallery-left-hover.png);
+	background-size: 30px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.gallery-button-close {
+	height: 25px;
+	background: white url(../img/gallery-close.png);
+	border: 1px solid lightgray;
+	background-size: 10px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	float: right;
+	z-index: 100;
+	position: relative;
+	width: 25px;
+	border-bottom-left-radius: 5px;
+	cursor: pointer;
+}
+
+.gallery-button-close:hover {
+	background: white url(../img/gallery-close-hover.png);
+	background-size: 10px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.gallery-buttons-right {
+	width: 30px;
+	background: white;
+	float: right;
+}
+
+.gallery-buttons-left {
+	width: 30px;
+	background: white;
+	float: right;
+	height: 30px;;
+}
+
+.gallery-buttons-right .close {
+	height: 30px;
+	background-image: url(../img/close32.png);
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: 2px;
+	margin-left: 3px;
+}
+
+.gallery-buttons-right .next {
+	height: 50px;
+	background: grey;
+}
+
+.gallery-buttons-left .pre {
+	height: 50px;
+	background: lightgrey;
+}
+
+.gallery-info {
+	bottom: 0px;
+	position: absolute;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.picture-info {
+	float: left;
+}
+
+.watermark-info {
+	float: right;
+	right: 0px;
+	margin-left: 20px;
+	font-size: 0.7em;
+}
+
+.gallery-image .helper {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.gallery-image img {
+	vertical-align: middle;
+}
