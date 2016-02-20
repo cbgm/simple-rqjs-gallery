@@ -1,9 +1,6 @@
 define([
-	'util/Configuration',
  	'lib/jquery'
- 
 ], function (
-	Configuration,
 	jQuery
 ) {
 	'use strict';
@@ -13,7 +10,6 @@ define([
 		var _body = jQuery('body'),
 			_affectedElement,
 			_galleryOverlay,
-			_originalPath = Configuration.get('API_URL') + "/images/",
 			_closeButton,
 			_nextButton,
 			_preButton,
@@ -228,11 +224,11 @@ define([
 
 		function correctSrc(thumbSrc) {
 
-			if (_originalPath !== null) {
+			if (settings.originalPath !== null) {
 
-				if (thumbSrc.indexOf(_originalPath) !== -1) {
+				if (thumbSrc.indexOf(settings.originalPath) !== -1) {
 					var splitThumb = thumbSrc.split("/");
-					var originalSrc = _originalPath + splitThumb[splitThumb.length-1];
+					var originalSrc = settings.originalPath + splitThumb[splitThumb.length-1];
 					return originalSrc;
 				} else {
 					return thumbSrc;
