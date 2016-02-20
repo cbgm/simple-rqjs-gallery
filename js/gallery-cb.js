@@ -1,27 +1,39 @@
 define([
+	'util/Configuration',
  	'lib/jquery'
  
 ], function (
+	Configuration,
 	jQuery
 ) {
 	'use strict';
+	var settings = null;
 
-	jQuery.fn.galleryInit = function() {
+	jQuery.fn.galleryInit = function(options) {
 		var _body = jQuery('body'),
 			_affectedElement,
 			_galleryOverlay,
+			_originalPath = Configuration.get('API_URL') + "/images/",
 			_closeButton,
 			_nextButton,
 			_preButton,
 			_imageHolder,
 			_galleryModal,
 			_galleryImage,
+			_imageLoader,
+			_spinner,
 			_images,
 			_affectedGallery,
 			_currentIndex = 0,
 			_gallerySize = 0,
 			_pictureInfo,
 			_waterMark = (window.location.href).indexOf("creative--space.de") === -1 ? true: false; 
+		
+		var defaults = {
+			originalPath : null
+		}
+
+		settings = jQuery.extend({}, defaults, options );
 
 		jQuery(".gallery-overlay").remove();
 		var result = "<div class='gallery-overlay'>" +
@@ -29,6 +41,13 @@ define([
 							"<div class='gallery-image'>" +
 								"<span class='helper'></span>" +
 								"<img src= ''>" +
+							"</div>" +
+							"<div class='image-loader'>" +
+								"<div id='spinner-holder'>" +
+									"<div class='spinner-container'>" +
+										"<div class='loading-spinner'></div>" +
+									"</div>" +
+								"</div>" +
 							"</div>" +
 							"<div class='gallery-button-close'></div>" +
 							"<div class='gallery-button-left'></div>" +
@@ -49,6 +68,8 @@ define([
 		_nextButton =  _body.find(".gallery-button-right");
 		_preButton =  _body.find(".gallery-button-left");
 		_imageHolder =  _body.find(".gallery-image");
+		_imageLoader =  _body.find(".image-loader");
+		_spinner = _body.find(".spinner-container");
 		_galleryModal =  _body.find(".gallery-modal");
 		_galleryImage =  _body.find(".gallery-image img");
 		_pictureInfo =  _body.find(".picture-info");
@@ -102,7 +123,7 @@ define([
 		_images.unbind("click");
 		_images.bind("click", function () {
 			doSizing();
-			_galleryImage.attr("src", this.src);
+			_galleryImage.attr("src", correctSrc(this.src));
 			loadImages(this);
 			findCurrentIndex(this);
 			_pictureInfo.html((_currentIndex+1) + " / " + _gallerySize);
@@ -157,7 +178,10 @@ define([
 					.css('width', _imageHolderWidth)
 					.css('margin-left', imageLeft)
 					.css('margin-top', imageTop);
-
+				_imageLoader.css('height', _imageHolderHeight)
+					.css('width', _imageHolderWidth)
+					.css('margin-left', imageLeft)
+					.css('margin-top', imageTop);
 				//image
 				_galleryImage.css('max-height', _imageHolderHeight);
 				_galleryImage.css('max-width', _imageHolderWidth);
@@ -175,7 +199,10 @@ define([
 					.css('width', _imageHolderWidth)
 					.css('margin-left', imageLeft)
 					.css('margin-top', imageTop);
-
+				_imageLoader.css('height', _imageHolderHeight)
+					.css('width', _imageHolderWidth)
+					.css('margin-left', imageLeft)
+					.css('margin-top', imageTop);
 				//image
 				_galleryImage.css('max-height', _imageHolderHeight);
 				_galleryImage.css('max-width', _imageHolderWidth);
@@ -187,14 +214,32 @@ define([
 		}
 
 		function doImageFade(src) {
-			_galleryImage.fadeOut(function() { 
+			
+			_galleryImage.fadeOut(function() {
+				_spinner.show();
 				jQuery(this).load(function() {
+					_spinner.hide();
 					jQuery(this).fadeIn(function () {
-						
-					}); 
-				}); 
-			_galleryImage.attr("src", src);
-			}); 
+					});
+				});
+			_galleryImage.attr("src", correctSrc(src));
+			});
+		}
+
+		function correctSrc(thumbSrc) {
+
+			if (_originalPath !== null) {
+
+				if (thumbSrc.indexOf(_originalPath) !== -1) {
+					var splitThumb = thumbSrc.split("/");
+					var originalSrc = _originalPath + splitThumb[splitThumb.length-1];
+					return originalSrc;
+				} else {
+					return thumbSrc;
+				}
+			} else {
+				return thumbSrc;
+			}
 		}
 	}
 	return this;

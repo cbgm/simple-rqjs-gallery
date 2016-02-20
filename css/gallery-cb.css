@@ -149,3 +149,33 @@
 .gallery-image img {
 	vertical-align: middle;
 }
+
+.image-loader {
+	position: absolute;
+	display: table;
+}
+
+.image-loader #spinner-holder {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.image-loader .spinner-container {
+	margin: 0 auto;
+	height: 30px;
+	width: 30px;
+	animation: rotate 0.8s infinite linear;
+	border: 2px solid #575757;
+	border-right-color: transparent;
+	border-radius: 50%;
+	top: 25%;
+	transform: translateY(-25%);
+	margin: 0px auto;
+	position: relative;
+	display: none;
+}
+
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
